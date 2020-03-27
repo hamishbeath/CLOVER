@@ -142,9 +142,7 @@ class Energy_System():
         diesel_dispatched_universal_switch_off_SOC = float(self.scenario_inputs[1]['Dispatchable diesel '
                                                                                    'universal switch off SOC'])
         min_diesel_capacity = diesel_capacity_dd * float(self.diesel_inputs[1]['Diesel minimum load'])
-        print(min_diesel_capacity)
         max_diesel_energy_in = min(storage_size * battery_C_rate_in, diesel_capacity_dd)
-        print(max_diesel_energy_in)
         if max_storage_energy_in > max_diesel_energy_in:
             max_solar_in = max_storage_energy_in - max_diesel_energy_in
         else:
@@ -165,13 +163,10 @@ class Energy_System():
 
 #   Check new SOC parameters do not exceed a maximum/minimum SOC range to avoid overflow issues
         diesel_dispatched_timed_minimum_SOC = max(diesel_dispatched_timed_minimum_SOC,min_SOC)
-        print(diesel_dispatched_timed_minimum_SOC)
         diesel_dispatched_universal_minimum_SOC = max(diesel_dispatched_universal_minimum_SOC,min_SOC)
-        print(diesel_dispatched_universal_minimum_SOC)
         diesel_dispatched_timed_switch_off_SOC = min(diesel_dispatched_timed_switch_off_SOC,max_SOC)
-        print(diesel_dispatched_timed_switch_off_SOC)
         diesel_dispatched_universal_switch_off_SOC = min(diesel_dispatched_universal_switch_off_SOC,max_SOC)
-        print(diesel_dispatched_universal_switch_off_SOC)
+
 #   Initialise energy accounting parameters 
         energy_surplus = []
         energy_deficit = []
