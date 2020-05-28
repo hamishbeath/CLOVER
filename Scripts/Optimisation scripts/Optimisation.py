@@ -455,7 +455,7 @@ class Optimisation():
         total_grid_used = np.sum(simulation_results['Grid energy (kWh)'])
         total_diesel_used = np.sum(simulation_results['Diesel energy (kWh)'])
         total_unmet_energy = np.sum(simulation_results['Unmet energy (kWh)'])
-        renewables_fraction = (total_renewables_used+total_storage_used)/total_energy
+        renewables_fraction = 1 - ((total_diesel_used + total_grid_used)/total_energy)
         unmet_fraction = total_unmet_energy/total_load_energy
 #   Calculate total discounted energy
         total_energy_daily = Conversion().hourly_profile_to_daily_sum(simulation_results['Total energy used (kWh)'])
