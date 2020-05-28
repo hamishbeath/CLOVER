@@ -755,12 +755,15 @@ class Energy_System():
         kerosene_usage = pd.DataFrame(blackout_times.values * kerosene_profile.values)
         kerosene_mitigation = pd.DataFrame((1-blackout_times).values * kerosene_profile.values)
 
+#   Ensure energy surplus column is length of simulation
+        energy_surplus_loc = energy_surplus[0:end_year * 8760]
+
 #   System performance outputs
         blackout_times.columns = ['Blackouts']
         hourly_storage = pd.DataFrame(hourly_storage)
         hourly_storage.columns = ['Hourly storage (kWh)']
-        energy_surplus = pd.DataFrame(energy_surplus)
-        energy_surplus.columns = ['Dumped energy (kWh)']
+        energy_surplus_loc = pd.DataFrame(energy_surplus_loc)
+        energy_surplus_loc.columns = ['Dumped energy (kWh)']
         unmet_energy.columns = ['Unmet energy (kWh)']
         storage_power_supplied.columns = ['Storage energy supplied (kWh)']
         diesel_energy.columns = ['Diesel energy (kWh)']
@@ -797,7 +800,8 @@ class Energy_System():
         time_delta = timer_end - timer_start
         print("\nTime taken for simulation: " + "{0:.2f}".format(
                 (time_delta.microseconds*0.000001)/float(end_year-start_year)) + " seconds per year")
-        
+
+
 #   Return all outputs        
         system_performance_outputs = pd.concat([load_energy,
                                                 total_energy_used,
@@ -816,13 +820,13 @@ class Energy_System():
                                                 storage_profile,
                                                 renewables_energy,
                                                 hourly_storage,
-                                                energy_surplus,
+                                                energy_surplus_loc,
                                                 battery_health,
                                                 households,
                                                 kerosene_usage,
                                                 kerosene_mitigation,
                                                 ],axis=1)
-        
+
         return tuple([system_performance_outputs,system_details])
 #%%
 # =============================================================================
